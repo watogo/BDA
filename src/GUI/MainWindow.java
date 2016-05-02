@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     private final String key;
     private final String projectId;
+    private String currentSpiderID;
     /**
      * Creates new form MainWindow
      * @param key
@@ -60,6 +61,8 @@ public class MainWindow extends javax.swing.JFrame {
         spiderMessageLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         returnTestArea = new javax.swing.JTextArea();
+        showLogBtn = new javax.swing.JButton();
+        spiderIdField = new javax.swing.JTextField();
         selectedProjectLabel = new javax.swing.JLabel();
         apiKeyLabel = new javax.swing.JLabel();
 
@@ -131,6 +134,17 @@ public class MainWindow extends javax.swing.JFrame {
         returnTestArea.setRows(5);
         jScrollPane3.setViewportView(returnTestArea);
 
+        showLogBtn.setText("Show Log");
+        showLogBtn.setEnabled(false);
+        showLogBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showLogBtnActionPerformed(evt);
+            }
+        });
+
+        spiderIdField.setText("Enter current Spider ID");
+        spiderIdField.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -139,14 +153,19 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(241, 241, 241)
                                 .addComponent(spiderMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-                            .addComponent(spiderNameField))
+                            .addComponent(spiderNameField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(spiderIdField, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(runSpiderBtn)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(showLogBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(runSpiderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(185, 185, 185))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -156,7 +175,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(runSpiderBtn)
                     .addComponent(spiderNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showLogBtn)
+                    .addComponent(spiderIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spiderMessageLabel)
@@ -252,6 +275,8 @@ public class MainWindow extends javax.swing.JFrame {
             System.out.println(cmd);
             p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            this.spiderIdField.setEnabled(true);
+            this.showLogBtn.setEnabled(true);
              while(true) {
                     String s = br.readLine();
                     if(s == null)
@@ -259,12 +284,16 @@ public class MainWindow extends javax.swing.JFrame {
                     String oldContent = returnTestArea.getText();
                     returnTestArea.setText(oldContent + "\n" + s);
                 }
-            //spiderMessageLabel.setText(s);
         }   catch (Exception ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_runSpiderBtnActionPerformed
+
+    private void showLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLogBtnActionPerformed
+        Thread t = new Thread(new LogViewer(spiderIdField.getText(), this.key));
+        t.start();
+    }//GEN-LAST:event_showLogBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -282,6 +311,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea returnTestArea;
     private javax.swing.JButton runSpiderBtn;
     private javax.swing.JLabel selectedProjectLabel;
+    private javax.swing.JButton showLogBtn;
+    private javax.swing.JTextField spiderIdField;
     private javax.swing.JLabel spiderMessageLabel;
     private javax.swing.JTextField spiderNameField;
     private javax.swing.JList spidersList;

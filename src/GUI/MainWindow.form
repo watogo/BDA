@@ -179,16 +179,23 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane3" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
                                           <Component id="spiderMessageLabel" pref="73" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="spiderNameField" max="32767" attributes="0"/>
+                                      <Component id="spiderNameField" alignment="1" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="spiderIdField" min="-2" pref="232" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="runSpiderBtn" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="showLogBtn" max="32767" attributes="0"/>
+                                      <Component id="runSpiderBtn" max="32767" attributes="0"/>
+                                  </Group>
                                   <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -203,7 +210,12 @@
                               <Component id="runSpiderBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="spiderNameField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="showLogBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spiderIdField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="278" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="spiderMessageLabel" min="-2" max="-2" attributes="0"/>
@@ -243,6 +255,21 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JButton" name="showLogBtn">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Show Log"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showLogBtnActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="spiderIdField">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Enter current Spider ID"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
