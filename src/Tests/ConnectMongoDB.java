@@ -6,6 +6,12 @@
 package Tests;
 
 import com.mongodb.*;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
+import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -18,7 +24,12 @@ public class ConnectMongoDB {
      */
     public static void main(String[] args) {
         MongoClient client = new MongoClient("localhost", 1234);
-        client.getDatabase("test");
+        MongoDatabase db = client.getDatabase("test");
+        MongoCollection coll = db.getCollection("test");
+        Document doc = new Document("x", 1);
+        coll.insertOne(doc);
+        doc.append("x", 2).append("x", 3);
+        
     }
     
 }
