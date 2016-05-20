@@ -1,5 +1,5 @@
 #coding=UTF-8
-import sys, getopt
+import sys, getopt, json
 from hubstorage import HubstorageClient
 
 def main(argv):
@@ -22,9 +22,10 @@ def main(argv):
 
 	hc = HubstorageClient(auth=apikey)
 	itemslist = hc.get_job(spider).items.list()
+	
 	itemslistIterator = itemslist.__iter__()
 	for items in itemslistIterator:
-		print items
+		print json.dumps(items)
 
 	
 if __name__ == "__main__":

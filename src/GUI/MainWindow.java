@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.*;
 import Utils.ResponseParser;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -65,6 +66,9 @@ public class MainWindow extends javax.swing.JFrame {
         spiderIdField = new javax.swing.JTextField();
         selectedProjectLabel = new javax.swing.JLabel();
         apiKeyLabel = new javax.swing.JLabel();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +207,21 @@ public class MainWindow extends javax.swing.JFrame {
 
         apiKeyLabel.setText("API Key:");
 
+        jMenu1.setText("Datei");
+        jMenu1.setActionCommand("Datei");
+
+        jMenuItem1.setText("Einstellungen");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar.add(jMenu1);
+
+        setJMenuBar(jMenuBar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,11 +273,14 @@ public class MainWindow extends javax.swing.JFrame {
                 String cmd[] = {"python", "allitems.py", "--apikey=" + this.key, "--spider=" + spider};
                 p = Runtime.getRuntime().exec(cmd);            
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                 
                 while(true) {
                     String s = br.readLine();
                     if(s == null)
                         break;
                     String oldContent = resultArea.getText();
+                    //byte[] converttoBytes = oldContent.getBytes(Charset.forName("UTF-8"));
+                    //oldContent = new String(converttoBytes, "UTF-8"); //Umlaute Konvertieren -> Funktioniert nicht
                     resultArea.setText(oldContent + "\n" + s);
                 }
             } catch (Exception ex) {
@@ -295,9 +317,17 @@ public class MainWindow extends javax.swing.JFrame {
         t.start();
     }//GEN-LAST:event_showLogBtnActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new Einstellungen().setVisible(true);
+        System.out.println("adsfdsf");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apiKeyLabel;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
