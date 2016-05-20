@@ -319,7 +319,6 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         new Einstellungen().setVisible(true);
-        System.out.println("adsfdsf");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
