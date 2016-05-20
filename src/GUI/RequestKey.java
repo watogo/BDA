@@ -10,9 +10,9 @@ package GUI;
  * @author Niklaus
  */
 public class RequestKey extends javax.swing.JFrame {
+
     private String key;
     private String projectId;
-    
 
     /**
      * Creates new form RequestKey
@@ -87,7 +87,7 @@ public class RequestKey extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void proceedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedBtnActionPerformed
-        if(!keyValueField.getText().equals("") && !projectIdField.getText().equals("")) {
+        if (!keyValueField.getText().equals("") && !projectIdField.getText().equals("")) {
             this.key = keyValueField.getText();
             this.projectId = projectIdField.getText();
             new MainWindow(key, projectId).setVisible(true);

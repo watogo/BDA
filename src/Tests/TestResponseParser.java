@@ -16,13 +16,14 @@ import java.util.logging.Logger;
  * @author Niklaus
  */
 public class TestResponseParser {
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
             Process p;
-            String cmd[] = {"python",  "allitems.py"};
+            String cmd[] = {"python", "allitems.py"};
             p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String s = br.readLine();

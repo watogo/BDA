@@ -40,7 +40,7 @@ public class FileHandler {
 
         try {
             fw = new FileWriter(pathToFile, true);
-            fw.write(text+"\r\n");
+            fw.write(text + "\r\n");
             fw.close();
         } catch (IOException ex) {
             Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);

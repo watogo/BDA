@@ -15,18 +15,20 @@ import java.util.logging.Logger;
  * @author Niklaus
  */
 public class LogViewer extends javax.swing.JFrame implements Runnable {
+
     private final String spiderID;
     private final String key;
 
     /**
      * Creates new form LogViewer
+     *
      * @param spiderID
      * @param key
      */
     public LogViewer(String spiderID, String key) {
         this.spiderID = spiderID;
         this.key = key;
-        initComponents();        
+        initComponents();
     }
 
     /**
@@ -61,7 +63,6 @@ public class LogViewer extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -71,21 +72,22 @@ public class LogViewer extends javax.swing.JFrame implements Runnable {
     @Override
     public void run() {
         this.setVisible(true);
-        try {   
+        try {
             Process p;
             String cmd = "curl -u " + this.key + ": https://storage.scrapinghub.com/logs/" + this.spiderID;
             System.out.println(cmd);
             p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-             while(true) {
-                    String s = br.readLine();
-                    if(s == null)
-                        break;
-                    String oldContent = logArea.getText();
-                    logArea.setText(oldContent + s + "\n");
+            while (true) {
+                String s = br.readLine();
+                if (s == null) {
+                    break;
                 }
+                String oldContent = logArea.getText();
+                logArea.setText(oldContent + s + "\n");
+            }
             //spiderMessageLabel.setText(s);
-        }   catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

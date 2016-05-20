@@ -10,9 +10,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.bson.Document;
 
 public class AddElementToCollection {
@@ -30,11 +28,8 @@ public class AddElementToCollection {
             }
             MongoDatabase db = mongoClient.getDatabase("test");
             MongoCollection coll = db.getCollection("test2");
-            //List<Document> myList = new ArrayList<>();
-            
+
             Document doc = Document.parse(jsonString);
-            //myList.add(doc);
-            //coll.insertMany(myList);
             coll.insertOne(doc);
         } finally {
             mongoClient.close();

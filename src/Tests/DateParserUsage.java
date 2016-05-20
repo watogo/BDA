@@ -24,19 +24,19 @@ public class DateParserUsage {
     public static void main(String[] args) {
         ParseDateToCommonFormat parser = new ParseDateToCommonFormat();
         try {
-                Process p;
-                String date = "Mittwoch 15.04.2015 20:05";
-                date = date.replace(' ', ';');
-                String cmd[] = {"python", "parseDate.py", "--date=" + date};
-                p = Runtime.getRuntime().exec(cmd);            
-                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                 
-                String s = br.readLine();
-                String result = parser.parseDate(s);
-                System.out.println(result);
-            } catch (Exception ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Process p;
+            String date = "Mittwoch 15.04.2015 20:05";
+            date = date.replace(' ', ';');
+            String cmd[] = {"python", "parseDate.py", "--date=" + date};
+            p = Runtime.getRuntime().exec(cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String s = br.readLine();
+            String result = parser.parseDate(s);
+            System.out.println(result);
+        } catch (Exception ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+    }
+
 }

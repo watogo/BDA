@@ -7,17 +7,18 @@ package Tests;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
- 
+
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
- 
+
 public class PrintFristElementOfCollection {
+
     public static void main(String[] args) throws UnknownHostException {
- 
-        MongoClient mongoClient = new MongoClient(new ServerAddress(), 
+
+        MongoClient mongoClient = new MongoClient(new ServerAddress(),
                 Arrays.asList(MongoCredential.createCredential("admin", "test", "password".toCharArray())));
         try {
             for (String databaseName : mongoClient.listDatabaseNames()) {

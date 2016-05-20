@@ -97,19 +97,19 @@ public class DateParserDemo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ParseDateToCommonFormat parser = new ParseDateToCommonFormat();
         try {
-                Process p;
-                String date = jTextField1.getText();
-                date = date.replace(' ', ';');
-                String cmd[] = {"python", "parseDate.py", "--date=" + date};
-                p = Runtime.getRuntime().exec(cmd);            
-                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                 
-                String s = br.readLine();
-                String result = parser.parseDate(s);
-                this.jLabel1.setText(this.jLabel1.getText() + " " + result);
-            } catch (Exception ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Process p;
+            String date = jTextField1.getText();
+            date = date.replace(' ', ';');
+            String cmd[] = {"python", "parseDate.py", "--date=" + date};
+            p = Runtime.getRuntime().exec(cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String s = br.readLine();
+            String result = parser.parseDate(s);
+            this.jLabel1.setText(this.jLabel1.getText() + " " + result);
+        } catch (Exception ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

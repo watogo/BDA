@@ -8,14 +8,10 @@ package GUI;
 import Tests.AddElementToCollection;
 import Tests.RunPythonScript;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.*;
 import Utils.ResponseParser;
-import java.nio.charset.Charset;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,11 +19,13 @@ import javax.swing.JOptionPane;
  * @author Niklaus
  */
 public class MainWindow extends javax.swing.JFrame {
+
     private final String key;
     private final String projectId;
-    private String currentSpiderID;
+
     /**
      * Creates new form MainWindow
+     *
      * @param key
      * @param projectId
      */
@@ -263,7 +261,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void listSpidersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listSpidersBtnActionPerformed
         try {
             Process p;
-            String cmd[] = {"python",  "alljobids.py", "--apikey=" + this.key, "--project=" + this.projectId};
+            String cmd[] = {"python", "alljobids.py", "--apikey=" + this.key, "--project=" + this.projectId};
             p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String s = br.readLine();
@@ -277,23 +275,23 @@ public class MainWindow extends javax.swing.JFrame {
     private void listResultsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listResultsBtnActionPerformed
         int selectedSpider = spidersList.getSelectedIndex();
         AddElementToCollection adEl = new AddElementToCollection();
-        if(selectedSpider == -1) {
+        if (selectedSpider == -1) {
             JOptionPane.showMessageDialog(this, "Please select a spider.",
                     "No Selection", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
+        } else {
             try {
                 Process p;
                 String spider = spidersList.getSelectedValue().toString();
                 String cmd[] = {"python", "allitems.py", "--apikey=" + this.key, "--spider=" + spider};
-                p = Runtime.getRuntime().exec(cmd);            
+                p = Runtime.getRuntime().exec(cmd);
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 //String s = "[";
                 //String s += br.readLine();
-                while(true) {
+                while (true) {
                     String s = br.readLine();
-                    if(s == null)
+                    if (s == null) {
                         break;
+                    }
                     String oldContent = resultArea.getText();
                     //byte[] converttoBytes = oldContent.getBytes(Charset.forName("UTF-8"));
                     //oldContent = new String(converttoBytes, "UTF-8"); //Umlaute Konvertieren -> Funktioniert nicht
@@ -303,7 +301,7 @@ public class MainWindow extends javax.swing.JFrame {
                 }
                 //resultArea.setText(resultArea.getText().substring(0, resultArea.getText().length()-2));
                 //resultArea.setText(resultArea.getText()+"]");
-                
+
             } catch (Exception ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -312,23 +310,24 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_listResultsBtnActionPerformed
 
     private void runSpiderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runSpiderBtnActionPerformed
-        try {   
+        try {
             Process p;
-            String cmd = "curl -u " + this.key + ": https://dash.scrapinghub.com/api/run.json -d project=" 
+            String cmd = "curl -u " + this.key + ": https://dash.scrapinghub.com/api/run.json -d project="
                     + this.projectId + " -d spider=" + this.spiderNameField.getText();
             System.out.println(cmd);
             p = Runtime.getRuntime().exec(cmd);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             this.spiderIdField.setEnabled(true);
             this.showLogBtn.setEnabled(true);
-             while(true) {
-                    String s = br.readLine();
-                    if(s == null)
-                        break;
-                    String oldContent = returnTestArea.getText();
-                    returnTestArea.setText(oldContent + "\n" + s);
+            while (true) {
+                String s = br.readLine();
+                if (s == null) {
+                    break;
                 }
-        }   catch (Exception ex) {
+                String oldContent = returnTestArea.getText();
+                returnTestArea.setText(oldContent + "\n" + s);
+            }
+        } catch (Exception ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_runSpiderBtnActionPerformed

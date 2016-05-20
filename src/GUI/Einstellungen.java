@@ -194,7 +194,7 @@ public class Einstellungen extends javax.swing.JFrame {
         FileHandler fh = new FileHandler("DatumFormate.txt");
         fh.removeLineFromFile(jList1.getSelectedValue().toString());
         fillDropDownAndList();
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -205,14 +205,14 @@ public class Einstellungen extends javax.swing.JFrame {
         fillDropDownAndList();
     }
 
-    private void fillDropDownAndList(){
+    private void fillDropDownAndList() {
         FileHandler fh = new FileHandler("DatumFormate.txt");
 
         ArrayList<String> myItems = fh.getFileContent();
         DefaultListModel listModel = new DefaultListModel();
-        
+
         jComboBox1.removeAllItems();
-        
+
         for (int i = 0; i < myItems.size(); i++) {
             jComboBox1.addItem(myItems.get(i));
             listModel.addElement(myItems.get(i));
@@ -221,8 +221,8 @@ public class Einstellungen extends javax.swing.JFrame {
 
         jList1.setModel(listModel);
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

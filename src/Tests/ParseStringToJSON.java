@@ -30,15 +30,15 @@ public class ParseStringToJSON {
                 + "\"Direktlink\": [\"http://www.trifork.ch/2016/03/30/goto-night-unplug...\"], "
                 + "\"Preis\": [\"Related Meetups: agile goto unplugged 1 person is attending this meetup Open in Google Maps\"], "
                 + "\"_template\": \"41872dcb344a72891157dda9c40a82d739abef76\"}";
-        
+
         JSONObject json = null;
         try {
             json = new JSONObject(element);
         } catch (JSONException ex) {
             Logger.getLogger(ParseStringToJSON.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         System.out.println(json.toString());
     }
-    
+
 }
