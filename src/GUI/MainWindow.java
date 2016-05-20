@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Tests.AddElementToCollection;
 import Tests.RunPythonScript;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,6 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
         listResultsBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultArea = new javax.swing.JTextArea();
+        saveResultBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         runSpiderBtn = new javax.swing.JButton();
@@ -92,6 +94,15 @@ public class MainWindow extends javax.swing.JFrame {
         resultArea.setRows(5);
         jScrollPane1.setViewportView(resultArea);
 
+        saveResultBtn.setText("Save to DB");
+        saveResultBtn.setEnabled(false);
+        saveResultBtn.setPreferredSize(new java.awt.Dimension(179, 23));
+        saveResultBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveResultBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,7 +116,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(listResultsBtn)
-                        .addGap(0, 222, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveResultBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 37, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -115,7 +128,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listSpidersBtn)
-                    .addComponent(listResultsBtn))
+                    .addComponent(listResultsBtn)
+                    .addComponent(saveResultBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
@@ -273,20 +287,25 @@ public class MainWindow extends javax.swing.JFrame {
                 String cmd[] = {"python", "allitems.py", "--apikey=" + this.key, "--spider=" + spider};
                 p = Runtime.getRuntime().exec(cmd);            
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                 
+                String s = "[";
+                s += br.readLine();
                 while(true) {
-                    String s = br.readLine();
                     if(s == null)
                         break;
                     String oldContent = resultArea.getText();
                     //byte[] converttoBytes = oldContent.getBytes(Charset.forName("UTF-8"));
                     //oldContent = new String(converttoBytes, "UTF-8"); //Umlaute Konvertieren -> Funktioniert nicht
-                    resultArea.setText(oldContent + "\n" + s);
+                    resultArea.setText(oldContent + "\n" + s+", ");
+                    s = br.readLine();
                 }
+                resultArea.setText(resultArea.getText().substring(0, resultArea.getText().length()-2));
+                resultArea.setText(resultArea.getText()+"]");
+                
             } catch (Exception ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        saveResultBtn.setEnabled(true);
     }//GEN-LAST:event_listResultsBtnActionPerformed
 
     private void runSpiderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runSpiderBtnActionPerformed
@@ -309,7 +328,6 @@ public class MainWindow extends javax.swing.JFrame {
         }   catch (Exception ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_runSpiderBtnActionPerformed
 
     private void showLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLogBtnActionPerformed
@@ -320,6 +338,11 @@ public class MainWindow extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         new Einstellungen().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void saveResultBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveResultBtnActionPerformed
+        AddElementToCollection save = new AddElementToCollection();
+        save.addToCollection(resultArea.getText());
+    }//GEN-LAST:event_saveResultBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -339,6 +362,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea resultArea;
     private javax.swing.JTextArea returnTestArea;
     private javax.swing.JButton runSpiderBtn;
+    private javax.swing.JButton saveResultBtn;
     private javax.swing.JLabel selectedProjectLabel;
     private javax.swing.JButton showLogBtn;
     private javax.swing.JTextField spiderIdField;
