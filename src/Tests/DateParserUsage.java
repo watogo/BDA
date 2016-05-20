@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Utils.ParseDateToCommonFormat;
 
 /**
  *
@@ -21,6 +22,7 @@ public class DateParserUsage {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        ParseDateToCommonFormat parser = new ParseDateToCommonFormat();
         try {
                 Process p;
                 String date = "Mittwoch 15.04.2015 20:05";
@@ -30,7 +32,8 @@ public class DateParserUsage {
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
                  
                 String s = br.readLine();
-                System.out.println(s);
+                String result = parser.parseDate(s);
+                System.out.println(result);
             } catch (Exception ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -5,6 +5,8 @@
  */
 package Tests;
 
+
+import Utils.ParseDateToCommonFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -19,8 +21,8 @@ public class ParseDateToCommonFormatTest {
      */
     public static void main(String[] args) {
        String input = "{'date_obj': datetime.datetime(2015, 4, 15, 20, 5), 'period': u'day'}";
-       ParseDateToCommonFormatTest test = new ParseDateToCommonFormatTest();
-       //test.parseDate(input);
+       ParseDateToCommonFormat test = new ParseDateToCommonFormat();
+       test.parseDate(input);
     }
     
 }
