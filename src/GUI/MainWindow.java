@@ -276,6 +276,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void listResultsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listResultsBtnActionPerformed
         int selectedSpider = spidersList.getSelectedIndex();
+        AddElementToCollection adEl = new AddElementToCollection();
         if(selectedSpider == -1) {
             JOptionPane.showMessageDialog(this, "Please select a spider.",
                     "No Selection", JOptionPane.ERROR_MESSAGE);
@@ -287,19 +288,21 @@ public class MainWindow extends javax.swing.JFrame {
                 String cmd[] = {"python", "allitems.py", "--apikey=" + this.key, "--spider=" + spider};
                 p = Runtime.getRuntime().exec(cmd);            
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String s = "[";
-                s += br.readLine();
+                //String s = "[";
+                //String s += br.readLine();
                 while(true) {
+                    String s = br.readLine();
                     if(s == null)
                         break;
                     String oldContent = resultArea.getText();
                     //byte[] converttoBytes = oldContent.getBytes(Charset.forName("UTF-8"));
                     //oldContent = new String(converttoBytes, "UTF-8"); //Umlaute Konvertieren -> Funktioniert nicht
-                    resultArea.setText(oldContent + "\n" + s+", ");
-                    s = br.readLine();
+                    resultArea.setText(oldContent + "\n" + s);
+                    adEl.addToCollection(s);
+                    //s = br.readLine();
                 }
-                resultArea.setText(resultArea.getText().substring(0, resultArea.getText().length()-2));
-                resultArea.setText(resultArea.getText()+"]");
+                //resultArea.setText(resultArea.getText().substring(0, resultArea.getText().length()-2));
+                //resultArea.setText(resultArea.getText()+"]");
                 
             } catch (Exception ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
